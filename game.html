@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel ="stylesheet"href ="style.css">
+</head>
+<body>
+    <div class="header">
+    <h1>BAT-BALL-STUMP GAME</h1>
+    </div>
+
+
+    <div class="GameBox">
+    <div class="button-box">
+    <button id = "Bat" onclick="
+    ComputerChoice = get_CompChoice();
+    resultMsg = get_result('Bat',ComputerChoice);
+    show_result('Bat',ComputerChoice,resultMsg);
+    "></button>
+    
+    <button id = "Ball"  onclick="
+    ComputerChoice = get_CompChoice();
+    resultMsg = get_result('Ball',ComputerChoice);
+    show_result('Ball',ComputerChoice,resultMsg);
+    "></button>
+    
+    <button id = "Stump" onclick="
+    ComputerChoice = get_CompChoice();
+    resultMsg = get_result('Stump',ComputerChoice);
+    show_result('Stump',ComputerChoice,resultMsg);
+    "></button>
+    </div>
+</div>
+    
+    <script>
+        let score = {
+            win  : 0,
+            lost : 0,
+            tie  : 0,
+        };
+        function get_CompChoice(){
+            let randomNumber = Math.random()*3;
+            if(randomNumber > 0 && randomNumber <= 1){
+                return 'Bat';
+            }else if(randomNumber > 1 && randomNumber <= 2){
+                return 'Ball';
+            }else{
+                return 'Stump';
+            }
+        }
+        function get_result(UserMove,CompMove){
+            if(UserMove === 'Bat'){
+                if(CompMove === 'Bat'){
+                    score.tie++;
+                    return `It's a tie.`;
+                }else if(CompMove === 'Ball'){
+                    score.win++;
+                    return 'User Won.';
+                }else if(CompMove === 'Stump'){
+                    score.lost++;
+                    return 'Computer Won.';
+                }
+        }else if(UserMove === 'Ball'){
+            if(CompMove === 'Bat'){
+                score.lost++;
+                return 'Computer Won.';
+            }else if(CompMove === 'Ball'){
+                score.tie++;
+                return `It's a tie.`;
+            }else if(CompMove === 'Stump'){
+                score.win++
+                return 'User Won.';
+            }
+        }else{
+            if(CompMove === 'Bat'){
+                score.win++
+                return 'User Won.';
+            }else if(CompMove === 'Ball'){
+                score.lost++;
+                return `Computer Won.`;
+            }else if(CompMove === 'Stump'){
+                score.tie++;
+                return `It's a tie.`;
+            }
+        }
+    }
+    function show_result(UserMove,CompMove,get_result){
+        alert(`You have choosen ${UserMove}.Computer choice is ${CompMove} and ${get_result}.
+        Won : ${score.win} 
+        Lost : ${score.lost}
+        Tie : ${score.tie}`);
+    }
+    </script>
+</body>
+</html>
